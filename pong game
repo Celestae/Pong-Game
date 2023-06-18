@@ -1,4 +1,5 @@
 import pygame, sys
+import random
 
 def ball_animation():
     global ball_speed_x, ball_speed_y
@@ -60,8 +61,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 #Ball speed
 
-ball_speed_x = 5
-ball_speed_y = 7
+ball_speed_x = 5 * random.choice((-1, 1))
+ball_speed_y = 7 * random.choice((-1, 1))
 
 
 # Player and Opponent speed
@@ -113,6 +114,10 @@ while True:
     player_animation()
     opponent_animation()
    
+    if ball.left <= 0 or ball.right >= screen_width:
+        ball.center = (screen_width/2, screen_height/2)
+        ball_speed_y *= random.choice([-1, 1])
+        ball_speed_x *= random.choice([-1, 1])
      
 
     
@@ -131,7 +136,6 @@ while True:
     pygame.draw.ellipse(screen, (255, 255, 255), ball)
     pygame.draw.aaline(screen, (255,255,255), (screen_width/2, 0), (screen_width/2, screen_height))
 
-    end_of_game()
 
 
     #updating the window
